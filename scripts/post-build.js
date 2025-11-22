@@ -18,7 +18,7 @@ const routingScript = `
           });
           if (q.p !== undefined) {
             window.history.replaceState(null, null,
-              l.pathname.slice(0, -1) + (q.p || '') +
+              (q.p || '') +
               (q.q ? ('?' + q.q) : '') +
               l.hash
             );
@@ -31,21 +31,18 @@ const routingScript = `
 indexContent = indexContent.replace('  </body>', routingScript);
 fs.writeFileSync(indexPath, indexContent);
 
-// Create 404.html
+// Create 404.html for username.github.io deployment
 const html404 = `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <title>Shambala Homes</title>
     <script type="text/javascript">
-        // Single Page Apps for GitHub Pages
-        // https://github.com/rafrex/spa-github-pages
-        var pathSegmentsToKeep = 1;
+        // Single Page Apps for GitHub Pages - for username.github.io
         var l = window.location;
         l.replace(
             l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-            l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/?p=/' +
-            l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~') +
+            '/?p=' + l.pathname.slice(1).replace(/&/g, '~and~') +
             (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
             l.hash
         );
@@ -57,4 +54,4 @@ const html404 = `<!DOCTYPE html>
 
 fs.writeFileSync(path.join(process.cwd(), 'dist', '404.html'), html404);
 
-console.log('GitHub Pages routing setup completed!');
+console.log('GitHub Pages routing setup completed for username.github.io!');

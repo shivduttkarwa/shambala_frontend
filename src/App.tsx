@@ -18,14 +18,11 @@ function App() {
     setIsLoading(false);
   };
 
-  const publicUrl = import.meta.env.BASE_URL || "/";
-  const basename = publicUrl === "/" ? "/" : publicUrl.replace(/\/$/, "");
-
   return (
     <>
       {/* Temporarily disabled loader */}
       {/* {isLoading && <BlackHoleLoader onComplete={handlePreloadComplete} />} */}
-      <Router basename={basename}>
+      <Router>
         <div className="App">
           <Header settings={settings} />
           <main>
