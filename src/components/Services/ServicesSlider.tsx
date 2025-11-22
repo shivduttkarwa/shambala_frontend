@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./ServicesSlider.css";
@@ -11,6 +12,7 @@ type ServiceCard = {
   bg: string;
   thumb: string;
   cta: string;
+  link: string;
 };
 
 const CARDS: ServiceCard[] = [
@@ -20,6 +22,7 @@ const CARDS: ServiceCard[] = [
     bg: "/images/l1.jpg",
     thumb: "/images/sm1.jpg",
     cta: "Learn More",
+    link: "/services/architectural-design",
   },
   {
     title: "Construction Services",
@@ -27,6 +30,7 @@ const CARDS: ServiceCard[] = [
     bg: "/images/l2.jpg",
     thumb: "/images/sm2.jpg",
     cta: "Learn More",
+    link: "/services/construction-services",
   },
   {
     title: "Interior Design",
@@ -34,6 +38,7 @@ const CARDS: ServiceCard[] = [
     bg: "/images/l3.jpg",
     thumb: "/images/sm3.jpg",
     cta: "Learn More",
+    link: "/services/interior-design",
   },
   {
     title: "Project Management",
@@ -41,6 +46,7 @@ const CARDS: ServiceCard[] = [
     bg: "/images/l4.jpg",
     thumb: "/images/sm4.jpg",
     cta: "Learn More",
+    link: "/services/project-management",
   },
   {
     title: "Renovation",
@@ -48,6 +54,7 @@ const CARDS: ServiceCard[] = [
     bg: "/images/l5.jpg",
     thumb: "/images/sm5.jpg",
     cta: "Learn More",
+    link: "/services/renovation",
   },
 ];
 
@@ -85,8 +92,8 @@ const ServicesSlider: React.FC = () => {
     }
 
     return lines.map((line, index) => (
-      <div key={index} className="mask">
-        <div className="line">{line}</div>
+      <div key={index} className="sp-mask">
+        <div className="sp-line">{line}</div>
       </div>
     ));
   };
@@ -228,20 +235,20 @@ const ServicesSlider: React.FC = () => {
 
   return (
     <section
-      className="services-slider-section"
+      className="sp-services-slider-section"
       onKeyDown={handleKeyDown}
       tabIndex={0}
       ref={sectionRef}
     >
-      <div className="head">
-        <h1 className="services-slider-title" ref={titleRef}>
+      <div className="sp-head">
+        <h1 className="sp-services-slider-title" ref={titleRef}>
           {splitTextIntoLines("Our Services")}
         </h1>
 
-        <div className="controls">
+        <div className="sp-controls">
           <button
             id="prev"
-            className="nav-btn"
+            className="sp-nav-btn"
             aria-label="Previous"
             onClick={() => goStep(-1)}
             disabled={activeIndex === 0}
@@ -250,7 +257,7 @@ const ServicesSlider: React.FC = () => {
           </button>
           <button
             id="next"
-            className="nav-btn"
+            className="sp-nav-btn"
             aria-label="Next"
             onClick={() => goStep(1)}
             disabled={activeIndex === CARDS.length - 1}
@@ -261,16 +268,16 @@ const ServicesSlider: React.FC = () => {
       </div>
 
       <div
-        className="slider"
+        className="sp-slider"
         ref={sliderRef}
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
-        <div className="track" id="track" ref={trackRef}>
+        <div className="sp-track" id="track" ref={trackRef}>
           {CARDS.map((card, index) => (
             <article
               key={card.title}
-              className="project-card"
+              className="sp-project-card"
               data-active={index === activeIndex}
               onMouseEnter={() => {
                 if (window.matchMedia("(hover:hover)").matches) {
@@ -280,20 +287,20 @@ const ServicesSlider: React.FC = () => {
               onClick={() => goTo(index)}
             >
               <img
-                className="project-card__bg"
+                className="sp-project-card__bg"
                 src={card.bg}
                 alt={card.title}
               />
-              <div className="project-card__content">
+              <div className="sp-project-card__content">
                 <img
-                  className="project-card__thumb"
+                  className="sp-project-card__thumb"
                   src={card.thumb}
                   alt={card.title}
                 />
                 <div>
-                  <h3 className="project-card__title">{card.title}</h3>
-                  <p className="project-card__desc">{card.desc}</p>
-                  <button className="project-card__btn">{card.cta}</button>
+                  <h3 className="sp-project-card__title">{card.title}</h3>
+                  <p className="sp-project-card__desc">{card.desc}</p>
+                  <Link to={card.link} className="sp-project-card__btn">{card.cta}</Link>
                 </div>
               </div>
             </article>
@@ -302,11 +309,11 @@ const ServicesSlider: React.FC = () => {
       </div>
 
       {!isMobile && (
-        <div className="dots" id="dots">
+        <div className="sp-dots" id="dots">
           {CARDS.map((card, index) => (
             <span
               key={card.title}
-              className={"dot" + (index === activeIndex ? " active" : "")}
+              className={"sp-dot" + (index === activeIndex ? " active" : "")}
               onClick={() => goTo(index)}
             />
           ))}
