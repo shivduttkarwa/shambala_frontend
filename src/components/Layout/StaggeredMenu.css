@@ -234,6 +234,29 @@
   flex-direction: column;
 }
 
+/* Button styling for menu items */
+.sm-panel-item-button {
+  text-align: left;
+  color: inherit;
+  font-size: inherit;
+  font-family: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  display: block;
+  width: 100%;
+}
+
+.sm-submenu-link {
+  text-align: left;
+  color: inherit;
+  font-size: inherit;
+  font-family: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  display: block;
+  width: 100%;
+}
+
 /* Remove all focus indicators globally for menu */
 .staggered-menu-panel * {
   outline: none !important;

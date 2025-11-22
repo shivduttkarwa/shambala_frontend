@@ -17,9 +17,9 @@ const Projects: React.FC = () => {
       <ProjectsShowcase />
       <ProjectModernSlider />
 
-      <ProjectsGrid />
+      {/* <ProjectsGrid />
       <ProjectsProcess />
-      <ProjectsCTA />
+      <ProjectsCTA /> */}
     </>
   );
 };

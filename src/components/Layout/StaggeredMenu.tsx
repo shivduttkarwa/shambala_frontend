@@ -1,5 +1,5 @@
-import React, { useCallback, useLayoutEffect, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useCallback, useLayoutEffect, useRef, useState, useEffect } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { gsap } from "gsap";
 import "./StaggeredMenu.css";
 
@@ -51,6 +51,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   logoAlt = "Logo",
 }) => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [open, setOpen] = useState(false);
   const [openSubmenu, setOpenSubmenu] = useState<number | null>(null);
   const [isHeaderVisible, setIsHeaderVisible] = useState(true);
@@ -104,8 +105,21 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
       if (toggleBtnRef.current)
         gsap.set(toggleBtnRef.current, { color: menuButtonColor });
     });
-    return () => ctx.revert();
+    
+    return () => {
+      // Kill all animations when component unmounts
+      openTlRef.current?.kill();
+      closeTweenRef.current?.kill();
+      itemEntranceTweenRef.current?.kill();
+      spinTweenRef.current?.kill();
+      textCycleAnimRef.current?.kill();
+      colorTweenRef.current?.kill();
+      submenuTweens.current.forEach(tween => tween?.kill());
+      arrowTweens.current.forEach(tween => tween?.kill());
+      ctx.revert();
+    };
   }, [menuButtonColor, position]);
+
 
   // Scroll direction detection to hide/show header
   useLayoutEffect(() => {
@@ -454,6 +468,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
     [openSubmenu, animateSubmenu]
   );
 
+
   const toggleMenu = useCallback(() => {
     const target = !openRef.current;
     openRef.current = target;
@@ -649,8 +664,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                         className="sm-panel-item"
                         aria-label={it.ariaLabel}
                         data-index={idx + 1}
-                        onClick={(e) => {
-                          e.preventDefault();
+                        onClick={() => {
                           if (it.link.startsWith("#")) {
                             const element = document.querySelector(it.link);
                             if (element) {
