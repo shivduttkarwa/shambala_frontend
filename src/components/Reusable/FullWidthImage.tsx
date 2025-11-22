@@ -1,14 +1,16 @@
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 import styles from "./FullWidthImage.module.css";
 
 const publicUrl = import.meta.env.BASE_URL;
 
 type FullWidthImageProps = {
   imageUrl?: string;
+  children?: ReactNode;
 };
 
 const FullWidthImage: FC<FullWidthImageProps> = ({
   imageUrl = `${publicUrl}images/bg.png`,
+  children,
 }) => {
   // No CTA/popup state needed
 
@@ -18,8 +20,7 @@ const FullWidthImage: FC<FullWidthImageProps> = ({
         className={styles["fwi-hero-image"]}
         style={{ backgroundImage: `url(${imageUrl})` }}
       >
-        {/* No text */}
-        {/* No exclusions/popup or CTA — simplified hero */}
+        {children}
       </div>
     </section>
   );

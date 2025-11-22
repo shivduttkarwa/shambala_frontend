@@ -71,8 +71,8 @@ const ChangingText: React.FC<ChangingTextProps> = ({
           opacity: 1,
           y: 0,
           filter: "blur(0px)",
-          stagger: 0.05,
-          duration: 0.6,
+          stagger: 0.1,
+          duration: 1.2,
           ease: "power2.out",
           onComplete: () => {
             // Animate out after a pause
@@ -80,9 +80,9 @@ const ChangingText: React.FC<ChangingTextProps> = ({
               opacity: 0,
               y: -20,
               filter: "blur(10px)",
-              stagger: 0.05,
-              delay: 1,
-              duration: 0.5,
+              stagger: 0.1,
+              delay: 2,
+              duration: 1.0,
               ease: "power2.in",
               onComplete: () => {
                 currentIdx.current = (index + 1) % texts.length;

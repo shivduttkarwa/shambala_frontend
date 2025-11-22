@@ -12,7 +12,8 @@
   height: 100vh; /* increased to full viewport height as requested */
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  padding: 0 5%;
 }
 
 /* Dark overlay layer applied on top of image to increase contrast for text */
@@ -32,6 +33,6 @@
   }
   /* Keep 100vh on mobile as requested */
   .fwi-hero-image {
-    height: 100vh;
+    height: 91vh;
   }
 }

@@ -9,22 +9,22 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ settings }) => {
   const publicUrl = import.meta.env.BASE_URL;
 
-  // Fixed menu items with anchor links to home page sections
+  // Fixed menu items with proper routing
   const menuItems = [
     {
       label: "HOME",
       ariaLabel: "Go to home page",
-      link: "#hero",
+      link: "/",
     },
     {
       label: "SERVICES",
       ariaLabel: "View our services",
-      link: "#services",
+      link: "/services",
     },
     {
       label: "PROJECTS",
       ariaLabel: "View our projects",
-      link: "#projects",
+      link: "/#projects",
     },
     {
       label: "ABOUT",
@@ -34,7 +34,7 @@ const Header: React.FC<HeaderProps> = ({ settings }) => {
     {
       label: "CONTACT US",
       ariaLabel: "Get in touch",
-      link: "#contact",
+      link: "/#contact",
     },
   ];
 
