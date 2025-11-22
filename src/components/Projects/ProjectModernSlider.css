@@ -1,5 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Dream+Avenue&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700&display=swap");
 
 /* Reset and base styles */
 .pms-creative-fullpage--slider * {
@@ -9,13 +9,13 @@
 }
 
 .pms-creative-fullpage--slider {
-  background-color: #ffffff;
+  background-color: var(--cream);
   z-index: 2;
   width: 100%;
   position: relative;
   height: 100vh;
   font-size: 16px;
-  font-family: "Inter", sans-serif;
+  font-family: "Nunito", sans-serif;
   overflow: hidden;
 }
 
@@ -81,7 +81,7 @@
 }
 
 .pms-title-area .pms-tag {
-  color: #ffffff;
+  color: var(--accent);
   font-weight: 900;
   font-size: 24px;
   margin-bottom: 10px;
@@ -92,7 +92,7 @@
   margin-top: 50px;
   color: #fff;
   font-size: 8vw;
-  font-family: "Inter", sans-serif;
+  font-family: "Dream Avenue", serif;
   font-weight: 900;
   line-height: 1.1;
   text-transform: uppercase;
@@ -107,7 +107,7 @@
   margin: 20px 0px 40px 0px;
   font-weight: 400;
   line-height: 32px;
-  color: #ffffffb0;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 /* Button Styles */
@@ -366,7 +366,7 @@
   pointer-events: auto;
   transition: transform 0.1s linear;
   will-change: transform;
-  font-family: "Inter", sans-serif;
+  font-family: "Nunito", sans-serif;
   font-weight: 700;
   font-size: 16px;
   color: #ffffff;
@@ -400,36 +400,6 @@
 
 .pms-swiper-container-h {
   overflow: hidden;
-}
-
-/* Buy Me A Coffee */
-.pms-coffee-button {
-  position: fixed;
-  z-index: 1000;
-  top: 20px;
-  right: 20px;
-  background-color: #ffc107;
-  color: #333;
-  padding: 8px 16px;
-  border-radius: 20px;
-  text-decoration: none;
-  font-family: "Dancing Script", cursive;
-  font-weight: 600;
-  font-size: 20px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  transition: background-color 0.3s;
-}
-
-.pms-coffee-button:hover {
-  background-color: #ffd54f;
-}
-
-.pms-coffee-icon {
-  font-size: 24px;
-  line-height: 1;
 }
 
 /* ====================== Responsive Ipad =============================== */

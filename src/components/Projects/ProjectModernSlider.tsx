@@ -16,6 +16,8 @@ import "swiper/css/pagination";
 
 import "./ProjectModernSlider.css";
 
+const publicUrl = import.meta.env.BASE_URL;
+
 interface SlideData {
   id: number;
   image: string;
@@ -39,29 +41,30 @@ const ProjectModernSlider: React.FC = () => {
   const slidesData: SlideData[] = [
     {
       id: 1,
-      image: "https://i.ibb.co/TMkmLNGw/26425.jpg",
-      tag: "OUR VISION",
-      title: "DESIGN",
+      image: `${publicUrl}images/l1.jpg`,
+      tag: "ARCHITECTURAL DESIGN",
+      title: "VISION",
       description:
-        "Credibly leverage existing business experiences through magnetic mindshare. Synergistically exploit efficient partnerships world-class applications.",
-      buttonText: "Take A Look",
+        "Transform your vision into architectural excellence with our comprehensive design services. From conceptual sketches to detailed blueprints, we create spaces that blend functionality with aesthetic appeal.",
+      buttonText: "Explore Projects",
     },
     {
       id: 2,
-      image: "https://i.ibb.co/VWGwrr6B/641.jpg",
-      tag: "INSPIRATION",
-      title: "MOTION",
+      image: `${publicUrl}images/l2.jpg`,
+      tag: "CONSTRUCTION EXCELLENCE",
+      title: "BUILDING",
       description:
-        "Conveniently formulate progressive users for error-free interfaces. Monotonectally deploy superior relationships without seamless infomediaries.",
-      buttonText: "See More",
+        "Experience superior craftsmanship with our comprehensive construction services. From foundation to finish, we execute every project with precision, using premium materials and advanced techniques.",
+      buttonText: "View Portfolio",
     },
     {
       id: 3,
-      image: "https://i.ibb.co/nsM9MSZZ/129770.jpg",
-      title: "ENGINE",
+      image: `${publicUrl}images/l3.jpg`,
+      tag: "INTERIOR DESIGN",
+      title: "LIVING",
       description:
-        "Conveniently formulate progressive users for error-free interfaces. Monotonectally deploy superior relationships without seamless infomediaries.",
-      buttonText: "Take A Look",
+        "Discover the potential of your interior spaces with our expert design services. Let's create a home that truly reflects your unique lifestyle and personality.",
+      buttonText: "See Designs",
     },
   ];
 
@@ -358,16 +361,6 @@ const ProjectModernSlider: React.FC = () => {
           DRAG
         </div>
       )}
-
-      {/* Buy Me A Coffee */}
-      <a
-        href="https://www.patreon.com/CreativeSalahu/shop/buy-me-coffee-support-digital-creativity-1419706?utm_medium=clipboard_copy&utm_source=copyLink&utm_campaign=productshare_fan&utm_content=join_link"
-        className="pms-coffee-button"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <span className="pms-coffee-icon">☕</span> Buy me a coffee
-      </a>
     </section>
   );
 };
