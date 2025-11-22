@@ -7,6 +7,7 @@ import HouseDesignsRoute from "./pages/HouseDesignsRoute";
 import About from "./pages/About";
 import Projects from "./pages/Projects";
 import ProjectDetailPage from "./pages/ProjectDetailPage";
+import ServicePage from "./components/Services/ServicePage";
 import { useSiteSettings } from "./hooks/useSiteSettings";
 import BlackHoleLoader from "./components/UI/BlackHoleLoader";
 
@@ -31,6 +32,7 @@ function App() {
               <Route path="/house-designs" element={<HouseDesignsRoute />} />
               <Route path="/about" element={<About />} />
               <Route path="/projects" element={<Projects />} />
+              <Route path="/services" element={<ServicePage />} />
               <Route
                 path="/projects/:projectId"
                 element={<ProjectDetailPage />}

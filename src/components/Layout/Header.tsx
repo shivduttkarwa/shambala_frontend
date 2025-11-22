@@ -22,6 +22,11 @@ const Header: React.FC<HeaderProps> = ({ settings }) => {
       link: "/projects",
     },
     {
+      label: "SERVICES",
+      ariaLabel: "View our services",
+      link: "/services",
+    },
+    {
       label: "PORTFOLIO",
       ariaLabel: "View our portfolio",
       link: "/#projects",

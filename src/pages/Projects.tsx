@@ -7,13 +7,14 @@ import ProjectsCTA from "../components/Projects/ProjectsCTA";
 import ProjectsSlider from "../components/Projects/ProjectsSlider";
 import ProjectStack from "@/components/Projects/SelectedProjectsStack";
 import ProjectModernSlider from "@/components/Projects/ProjectModernSlider";
+import ProjectsShowcase from "../components/Projects/ProjectsShowcase";
 
 const Projects: React.FC = () => {
   return (
     <>
       <ProjectsHero />
       <ProjectsSlider />
-      {/* <ProjectStack /> */}
+      <ProjectsShowcase />
       <ProjectModernSlider />
 
       <ProjectsGrid />
