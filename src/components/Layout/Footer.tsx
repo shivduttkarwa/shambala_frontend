@@ -1,4 +1,5 @@
 import React, { useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
 import "./Footer.css";
 import { SiteSettings } from "../../services/api";
 import gsap from "gsap";
@@ -152,19 +153,19 @@ const Footer: React.FC<FooterProps> = ({ settings }) => {
           <div className="footer-links-section">
             <h3 className="footer-section-title">Explore</h3>
             <div className="footer-links">
-              <a href={`${publicUrl}/portfolio`} className="footer-link">
+              <Link to="/house-designs" className="footer-link">
                 <span className="link-arrow">→</span>
                 Portfolio
-              </a>
-              <a href={`${publicUrl}/projects`} className="footer-link">
+              </Link>
+              <Link to="/projects" className="footer-link">
                 <span className="link-arrow">→</span>
                 Projects
-              </a>
-              <a href={`${publicUrl}/about`} className="footer-link">
+              </Link>
+              <Link to="/about" className="footer-link">
                 <span className="link-arrow">→</span>
-                Studio
-              </a>
-              <a href={`${publicUrl}/blog`} className="footer-link">
+                About
+              </Link>
+              <a href="/blog" className="footer-link">
                 <span className="link-arrow">→</span>
                 Blog
               </a>

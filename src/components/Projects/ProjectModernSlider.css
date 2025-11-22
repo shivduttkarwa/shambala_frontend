@@ -270,7 +270,7 @@
   line-height: 85px;
   border-radius: 50%;
   transition: all 0.4s;
-  cursor: pointer;
+  cursor: pointer !important;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -305,6 +305,7 @@
 .pms-swiper-button-next:hover,
 .pms-swiper-button-prev:hover {
   background: rgba(255, 255, 255, 0.05);
+  cursor: pointer !important;
 }
 
 /* Pagination */
@@ -348,12 +349,12 @@
   background: #ffffff;
 }
 
-/* Simple Drag Button Styles */
+/* Drag Button Styles */
 .pms-drag-btn {
   position: fixed;
-  width: 80px;
-  height: 80px;
-  background: rgba(255, 255, 255, 0.95);
+  width: 104px; /* 30% larger than 80px */
+  height: 104px; /* 30% larger than 80px */
+  background: rgba(60, 60, 60, 0.95); /* Lighter dark background */
   border: 2px solid #ffffff;
   border-radius: 50%;
   display: flex;
@@ -366,32 +367,22 @@
   transition: transform 0.1s linear;
   will-change: transform;
   font-family: "Inter", sans-serif;
-  font-weight: 600;
-  font-size: 14px;
-  color: #333;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  font-weight: 700;
+  font-size: 16px;
+  color: #ffffff;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(20px);
 }
 
 .pms-drag-btn:hover {
-  background: rgba(255, 255, 255, 1);
+  background: rgba(80, 80, 80, 0.95); /* Slightly lighter on hover */
   transform: translate(-50%, -50%) scale(1.1);
 }
 
-.pms-drag-btn:active {
+.pms-drag-btn.pms-dragging {
   cursor: grabbing;
+  background: rgba(100, 100, 100, 0.95); /* Even lighter when dragging */
   transform: translate(-50%, -50%) scale(1.05);
-}
-
-/* Normal pointer cursor for navigation buttons */
-.pms-swiper-button-next,
-.pms-swiper-button-prev {
-  cursor: pointer !important;
-}
-
-.pms-swiper-button-next:hover,
-.pms-swiper-button-prev:hover {
-  cursor: pointer !important;
 }
 
 /* Hide drag button on mobile */
@@ -403,7 +394,7 @@
 
 /* Ensure normal scroll behavior */
 .pms-creative-fullpage--slider {
-  cursor: default;
+  cursor: none !important; /* Force no cursor in slider section */
   overflow: visible;
 }
 

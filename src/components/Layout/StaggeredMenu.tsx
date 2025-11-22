@@ -1,4 +1,5 @@
 import React, { useCallback, useLayoutEffect, useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { gsap } from "gsap";
 import "./StaggeredMenu.css";
 
@@ -49,6 +50,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   logoText,
   logoAlt = "Logo",
 }) => {
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [openSubmenu, setOpenSubmenu] = useState<number | null>(null);
   const [isHeaderVisible, setIsHeaderVisible] = useState(true);
@@ -628,39 +630,45 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                               key={subItem.label + subIdx}
                               className="sm-submenu-item"
                             >
-                              <a
-                                href={subItem.link}
+                              <div
+                                onClick={() => {
+                                  navigate(subItem.link);
+                                  toggleMenu();
+                                }}
                                 className="sm-submenu-link"
+                                style={{ cursor: "pointer" }}
                               >
                                 {subItem.label}
-                              </a>
+                              </div>
                             </li>
                           ))}
                         </ul>
                       </div>
                     ) : (
-                      <a
+                      <div
                         className="sm-panel-item"
-                        href={it.link}
                         aria-label={it.ariaLabel}
                         data-index={idx + 1}
                         onClick={(e) => {
+                          e.preventDefault();
                           if (it.link.startsWith("#")) {
-                            e.preventDefault();
                             const element = document.querySelector(it.link);
                             if (element) {
                               element.scrollIntoView({
                                 behavior: "smooth",
                                 block: "start",
                               });
-                              // Close menu after navigation
-                              toggleMenu();
                             }
+                          } else {
+                            navigate(it.link);
                           }
+                          // Close menu after navigation
+                          toggleMenu();
                         }}
+                        style={{ cursor: "pointer" }}
                       >
                         <span className="sm-panel-itemLabel">{it.label}</span>
-                      </a>
+                      </div>
                     )}
                   </li>
                 ))

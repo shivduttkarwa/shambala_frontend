@@ -11,10 +11,11 @@ import ProjectModernSlider from "@/components/Projects/ProjectModernSlider";
 const Projects: React.FC = () => {
   return (
     <>
-      {/* <ProjectsHero />
-      <ProjectsSlider /> */}
-      <ProjectStack />
+      <ProjectsHero />
+      <ProjectsSlider />
+      {/* <ProjectStack /> */}
       <ProjectModernSlider />
+
       <ProjectsGrid />
       <ProjectsProcess />
       <ProjectsCTA />

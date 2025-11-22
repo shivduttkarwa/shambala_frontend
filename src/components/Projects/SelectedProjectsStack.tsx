@@ -1,110 +1,104 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import "./SelectedProjectsStack.css";
 
-const SelectedProjectsStack: React.FC = () => {
-  const rootRef = useRef<HTMLDivElement | null>(null);
+export default function SelectedProjectsStack() {
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    const root = rootRef.current;
-    if (!root) return;
+    const container = containerRef.current;
+    if (!container) return;
 
-    const sections = Array.from(
-      root.querySelectorAll<HTMLElement>(".prstack-project-section")
-    );
+    const titlesInner = container.querySelector(
+      ".prstack-titles-inner"
+    ) as HTMLElement | null;
     const titles = Array.from(
-      root.querySelectorAll<HTMLElement>(".prstack-title")
-    );
-    const track = root.querySelector<HTMLElement>(".prstack-titles-inner");
+      container.querySelectorAll(".prstack-title")
+    ) as HTMLElement[];
+    const sections = Array.from(
+      container.querySelectorAll(".prstack-project-section")
+    ) as HTMLElement[];
+    const mask = container.querySelector(
+      ".prstack-titles-mask"
+    ) as HTMLElement | null;
 
-    if (!sections.length || !titles.length || !track) return;
+    if (!titlesInner || !titles.length || !sections.length || !mask) return;
 
-    // spacing between titles based on their height (stable across layouts)
-    let step = titles[0].offsetHeight * 1.25;
-    let currentIndex = -1;
+    const getCurrentTranslateY = () => {
+      const style = window.getComputedStyle(titlesInner);
+      const transform = style.transform || "";
+      const match = transform.match(/matrix\(.*,\s*(-?\d+(\.\d+)?)\)$/);
+      if (match && match[1]) {
+        return parseFloat(match[1]);
+      }
+      // try translateY(xpx)
+      const match2 = transform.match(/translateY\((-?\d+(\.\d+)?)px\)/);
+      if (match2 && match2[1]) {
+        return parseFloat(match2[1]);
+      }
+      return 0;
+    };
 
     const setActive = (index: number) => {
-      if (index === currentIndex || index < 0 || index >= titles.length) return;
-      currentIndex = index;
+      if (index < 0 || index >= titles.length) return;
 
-      // same logic as original: -step * index + 60
-      const targetY = -step * index + 60;
-      track.style.transform = `translateY(${targetY}px)`;
+      const activeTitle = titles[index];
+      const maskRect = mask.getBoundingClientRect();
+      const titleRect = activeTitle.getBoundingClientRect();
 
-      // update title opacity classes
+      const maskCenter = maskRect.top + maskRect.height / 2;
+      const titleCenter = titleRect.top + titleRect.height / 2;
+      const delta = maskCenter - titleCenter;
+
+      const currentY = getCurrentTranslateY();
+      const newY = currentY + delta;
+
+      titlesInner.style.transform = `translateY(${newY}px)`;
+
+      // state classes for opacity
       titles.forEach((t, i) => {
-        t.classList.remove(
-          "prstack-title--active",
-          "prstack-title--next",
-          "prstack-title--prev"
-        );
-        if (i === index) t.classList.add("prstack-title--active");
-        if (i === index + 1) t.classList.add("prstack-title--next");
-        if (i === index - 1) t.classList.add("prstack-title--prev");
+        t.classList.toggle("prstack-title--active", i === index);
+        t.classList.toggle("prstack-title--next", i === index + 1);
+        t.classList.toggle("prstack-title--prev", i === index - 1);
       });
 
-      // update active image section
-      sections.forEach((s, i) => {
-        if (i === index) {
-          s.classList.add("prstack-project-section--active");
-        } else {
-          s.classList.remove("prstack-project-section--active");
-        }
+      sections.forEach((sec, i) => {
+        sec.classList.toggle("prstack-project-section--active", i === index);
       });
     };
 
-    const updateActiveFromScroll = () => {
-      // use viewport center to decide which section is active
-      const viewportCenter = window.innerHeight / 2;
-
-      let bestIndex = 0;
-      let smallestDelta = Infinity;
-
-      sections.forEach((sec, idx) => {
-        const rect = sec.getBoundingClientRect();
-        const secCenter = rect.top + rect.height / 2;
-        const delta = Math.abs(secCenter - viewportCenter);
-        if (delta < smallestDelta) {
-          smallestDelta = delta;
-          bestIndex = idx;
-        }
-      });
-
-      setActive(bestIndex);
-    };
-
-    const handleScroll = () => {
-      updateActiveFromScroll();
-    };
-
-    const handleResize = () => {
-      // recalc step on resize (font / layout changes)
-      if (titles.length > 0) {
-        step = titles[0].offsetHeight * 1.25;
+    // IntersectionObserver picks the active section
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const sec = entry.target as HTMLElement;
+          const index = sections.indexOf(sec);
+          if (index !== -1) {
+            setActive(index);
+          }
+        });
+      },
+      {
+        root: null, // viewport
+        threshold: 0.5, // ~center area
       }
-      updateActiveFromScroll();
-    };
+    );
 
-    const init = () => {
-      // initial offset just like the original: translateY(60px)
-      track.style.transform = "translateY(60px)";
-      updateActiveFromScroll();
-    };
+    sections.forEach((sec) => observer.observe(sec));
 
-    const initTimeout = setTimeout(init, 80);
-
-    // listen to window scroll (no inner scrollbar)
-    window.addEventListener("scroll", handleScroll);
-    window.addEventListener("resize", handleResize);
+    // initial centering on load (first title)
+    const initTimeout = setTimeout(() => {
+      setActive(0);
+    }, 150);
 
     return () => {
       clearTimeout(initTimeout);
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", handleResize);
+      observer.disconnect();
     };
   }, []);
 
   return (
-    <div className="prstack-root" ref={rootRef}>
+    <div className="prstack-root" ref={containerRef}>
       {/* HERO */}
       <section className="prstack-hero">
         <img
@@ -120,7 +114,7 @@ const SelectedProjectsStack: React.FC = () => {
 
       {/* MAIN GRID */}
       <div className="prstack-container">
-        {/* LEFT STICKY TITLES */}
+        {/* LEFT TITLES */}
         <div className="prstack-left">
           <div className="prstack-titles-mask">
             <div className="prstack-titles-inner">
@@ -193,6 +187,4 @@ const SelectedProjectsStack: React.FC = () => {
       </div>
     </div>
   );
-};
-
-export default SelectedProjectsStack;
+}

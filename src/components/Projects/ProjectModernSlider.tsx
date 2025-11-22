@@ -33,6 +33,7 @@ const ProjectModernSlider: React.FC = () => {
   const [isDragging, setIsDragging] = useState(false);
   const [dragPosition, setDragPosition] = useState({ x: 0, y: 0 });
   const [showDragBtn, setShowDragBtn] = useState(false);
+  const [isOverNavButton, setIsOverNavButton] = useState(false);
   const animationFrameRef = useRef<number | null>(null);
 
   const slidesData: SlideData[] = [
@@ -75,7 +76,7 @@ const ProjectModernSlider: React.FC = () => {
     animationFrameRef.current = requestAnimationFrame(() => {
       if (dragBtnRef.current) {
         dragBtnRef.current.style.left = `${x}px`;
-        dragBtnRef.current.style.top = `${y}px`;
+        dragBtnRef.current.style.top = `${y + 80}px`; // Position below cursor
       }
     });
   };
@@ -84,12 +85,16 @@ const ProjectModernSlider: React.FC = () => {
   useEffect(() => {
     const handleMouseEnter = () => {
       setIsInSection(true);
-      setShowDragBtn(true);
+      if (!isOverNavButton) {
+        setShowDragBtn(true);
+        document.body.style.cursor = "none"; // Hide cursor completely
+      }
     };
 
     const handleMouseLeave = () => {
       setIsInSection(false);
       setShowDragBtn(false);
+      document.body.style.cursor = "default"; // Restore cursor
     };
 
     const section = sliderSectionRef.current;
@@ -106,24 +111,67 @@ const ProjectModernSlider: React.FC = () => {
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current);
       }
+      document.body.style.cursor = "default"; // Ensure cursor is restored
     };
-  }, []);
+  }, [isOverNavButton]);
 
   // Handle mouse move for drag button position
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      if (isInSection) {
+      if (isInSection && !isOverNavButton) {
         setDragPosition({ x: e.clientX, y: e.clientY });
-        updateDragButtonPosition(e.clientX, e.clientY + 40); // Position below cursor
+        updateDragButtonPosition(e.clientX, e.clientY);
       }
     };
 
-    if (isInSection) {
+    if (isInSection && !isOverNavButton) {
       document.addEventListener("mousemove", handleMouseMove);
     }
 
     return () => {
       document.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, [isInSection, isOverNavButton]);
+
+  // Check if mouse is over navigation buttons
+  useEffect(() => {
+    const handleNavButtonEnter = () => {
+      setIsOverNavButton(true);
+      setShowDragBtn(false);
+      document.body.style.cursor = "pointer"; // Show pointer for nav buttons
+    };
+
+    const handleNavButtonLeave = () => {
+      setIsOverNavButton(false);
+      if (isInSection) {
+        setShowDragBtn(true);
+        document.body.style.cursor = "none"; // Hide cursor again
+      } else {
+        document.body.style.cursor = "default"; // Restore cursor
+      }
+    };
+
+    const nextButton = document.querySelector(".pms-swiper-button-next");
+    const prevButton = document.querySelector(".pms-swiper-button-prev");
+
+    if (nextButton) {
+      nextButton.addEventListener("mouseenter", handleNavButtonEnter);
+      nextButton.addEventListener("mouseleave", handleNavButtonLeave);
+    }
+    if (prevButton) {
+      prevButton.addEventListener("mouseenter", handleNavButtonEnter);
+      prevButton.addEventListener("mouseleave", handleNavButtonLeave);
+    }
+
+    return () => {
+      if (nextButton) {
+        nextButton.removeEventListener("mouseenter", handleNavButtonEnter);
+        nextButton.removeEventListener("mouseleave", handleNavButtonLeave);
+      }
+      if (prevButton) {
+        prevButton.removeEventListener("mouseenter", handleNavButtonEnter);
+        prevButton.removeEventListener("mouseleave", handleNavButtonLeave);
+      }
     };
   }, [isInSection]);
 
@@ -144,7 +192,6 @@ const ProjectModernSlider: React.FC = () => {
 
     const deltaX = e.movementX;
     if (Math.abs(deltaX) > 2) {
-      // Even lower threshold for better sensitivity
       if (deltaX > 0) {
         swiperRef.current.slidePrev();
       } else {
@@ -154,7 +201,7 @@ const ProjectModernSlider: React.FC = () => {
 
     // Update position during drag
     setDragPosition({ x: e.clientX, y: e.clientY });
-    updateDragButtonPosition(e.clientX, e.clientY + 60);
+    updateDragButtonPosition(e.clientX, e.clientY);
   };
 
   const handleDragEnd = () => {
@@ -216,7 +263,7 @@ const ProjectModernSlider: React.FC = () => {
             swiperRef.current = swiper;
           }}
           onSlideChange={() => {
-            if (isInSection) {
+            if (isInSection && !isOverNavButton) {
               setShowDragBtn(true);
             }
           }}
@@ -300,20 +347,18 @@ const ProjectModernSlider: React.FC = () => {
           </div>
         </Swiper>
       </div>
-      // Replace the entire drag button section with this simplified version:
+
+      {/* Drag Button */}
       {showDragBtn && (
         <div
           ref={dragBtnRef}
-          className="pms-drag-btn"
-          style={{
-            left: `${dragPosition.x}px`,
-            top: `${dragPosition.y + 60}px`,
-          }}
+          className={`pms-drag-btn ${isDragging ? "pms-dragging" : ""}`}
           onMouseDown={handleDragStart}
         >
           DRAG
         </div>
       )}
+
       {/* Buy Me A Coffee */}
       <a
         href="https://www.patreon.com/CreativeSalahu/shop/buy-me-coffee-support-digital-creativity-1419706?utm_medium=clipboard_copy&utm_source=copyLink&utm_campaign=productshare_fan&utm_content=join_link"

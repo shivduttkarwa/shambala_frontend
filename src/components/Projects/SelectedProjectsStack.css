@@ -1,9 +1,8 @@
 .prstack-root {
-  /* no separate scroll container here */
   width: 100%;
   overflow-x: hidden;
-  font-family: "Times New Roman", serif;
   background: #fff;
+  font-family: "Times New Roman", serif;
   color: #111;
 }
 
@@ -96,16 +95,15 @@
 }
 
 .prstack-titles-mask {
-  height: 100%;
   width: 100%;
+  height: 100%;
   overflow: hidden;
 }
 
 .prstack-titles-inner {
   position: relative;
   will-change: transform;
-  transform: translateY(60px); /* initial offset */
-  transition: transform 1.4s cubic-bezier(0.16, 0.69, 0.11, 1);
+  transition: transform 0.9s cubic-bezier(0.16, 0.69, 0.11, 1);
 }
 
 .prstack-title {
@@ -116,23 +114,20 @@
   white-space: nowrap;
 }
 
-.prstack-title.prstack-title--active {
+.prstack-title--active {
   opacity: 1;
 }
-
-.prstack-title.prstack-title--next {
+.prstack-title--next {
   opacity: 0.45;
 }
-
-.prstack-title.prstack-title--prev {
-  opacity: 0.18;
+.prstack-title--prev {
+  opacity: 0.2;
 }
 
 /* RIGHT */
 
 .prstack-right {
-  /* lift right side slightly to match left titles visually */
-  transform: translateY(-6vh);
+  transform: translateY(-6vh); /* to visually align with titles */
 }
 
 .prstack-project-section {
@@ -155,7 +150,7 @@
   transition: transform 1.5s cubic-bezier(0.16, 0.69, 0.11, 1);
 }
 
-.prstack-project-section.prstack-project-section--active .prstack-project-img {
+.prstack-project-section--active .prstack-project-img {
   transform: translateY(0%);
 }
 
