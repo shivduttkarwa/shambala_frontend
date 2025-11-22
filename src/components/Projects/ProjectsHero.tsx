@@ -3,14 +3,14 @@ import FullWidthImage from "../Reusable/FullWidthImage";
 import ChangingText from "../UI/ChangingText";
 import GlassRainButton from "../UI/GlassRainButton";
 import gsap from "gsap";
-import "./ServicesHero.css";
+import "./ProjectsHero.css";
 
 const publicUrl = import.meta.env.BASE_URL;
 
 const leftTexts = ["EXPERT", "PROFESSIONAL", "RELIABLE"];
 const rightTexts = ["EXCELLENCE", "ASSURANCE", "TRUST"];
 
-const ServicesHero: React.FC = () => {
+const ProjectsHero: React.FC = () => {
   const leftTopRef = useRef<HTMLHeadingElement>(null);
   const rightTopRef = useRef<HTMLHeadingElement>(null);
 
@@ -47,18 +47,18 @@ const ServicesHero: React.FC = () => {
 
   return (
     <FullWidthImage imageUrl={`${publicUrl}images/l11.jpg`}>
-      <div className="services-hero-left">
+      <div className="pr-projects-hero-left">
         <h1 ref={leftTopRef}>PREMIUM</h1>
-        <div className="services-hero-text-wrapper">
+        <div className="pr-projects-hero-text-wrapper">
           <ChangingText texts={leftTexts} />
         </div>
       </div>
-      <div className="services-hero-center">
-        <GlassRainButton>Explore Services</GlassRainButton>
+      <div className="pr-projects-hero-center">
+        <GlassRainButton>Explore Projects</GlassRainButton>
       </div>
-      <div className="services-hero-right">
+      <div className="pr-projects-hero-right">
         <h1 ref={rightTopRef}>QUALITY</h1>
-        <div className="services-hero-text-wrapper">
+        <div className="pr-projects-hero-text-wrapper">
           <ChangingText texts={rightTexts} />
         </div>
       </div>
@@ -66,4 +66,4 @@ const ServicesHero: React.FC = () => {
   );
 };
 
-export default ServicesHero;
+export default ProjectsHero;

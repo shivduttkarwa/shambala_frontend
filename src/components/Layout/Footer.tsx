@@ -116,7 +116,7 @@ const Footer: React.FC<FooterProps> = ({ settings }) => {
                 onComplete: () => {
                   // Clear inline styles so CSS hover effects can work
                   gsap.set(letter, { clearProps: "color" });
-                }
+                },
               });
             });
           },
@@ -156,9 +156,9 @@ const Footer: React.FC<FooterProps> = ({ settings }) => {
                 <span className="link-arrow">→</span>
                 Portfolio
               </a>
-              <a href={`${publicUrl}/services`} className="footer-link">
+              <a href={`${publicUrl}/projects`} className="footer-link">
                 <span className="link-arrow">→</span>
-                Services
+                Projects
               </a>
               <a href={`${publicUrl}/about`} className="footer-link">
                 <span className="link-arrow">→</span>

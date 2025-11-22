@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import "./ServicesSlider.css";
+import "./ProjectsSlider.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -17,48 +17,48 @@ type ServiceCard = {
 
 const CARDS: ServiceCard[] = [
   {
-    title: "Architectural Design",
-    desc: "Custom home designs tailored to your vision.",
+    title: "Luxury Villa in Brighton",
+    desc: "A stunning modern villa with panoramic ocean views and contemporary design.",
     bg: "/images/l1.jpg",
     thumb: "/images/sm1.jpg",
-    cta: "Learn More",
-    link: "/services/architectural-design",
+    cta: "View Project",
+    link: "/projects/luxury-villa-brighton",
   },
   {
-    title: "Construction Services",
-    desc: "Expert building with quality materials.",
+    title: "Contemporary Family Home",
+    desc: "Spacious family residence featuring open-plan living and sustainable materials.",
     bg: "/images/l2.jpg",
     thumb: "/images/sm2.jpg",
-    cta: "Learn More",
-    link: "/services/construction-services",
+    cta: "View Project",
+    link: "/projects/contemporary-family-home",
   },
   {
-    title: "Interior Design",
-    desc: "Beautiful interiors for modern living.",
+    title: "Urban Penthouse Renovation",
+    desc: "Complete transformation of a city penthouse with premium finishes and city skyline views.",
     bg: "/images/l3.jpg",
     thumb: "/images/sm3.jpg",
-    cta: "Learn More",
-    link: "/services/interior-design",
+    cta: "View Project",
+    link: "/projects/urban-penthouse-renovation",
   },
   {
-    title: "Project Management",
-    desc: "Seamless project execution from start to finish.",
+    title: "Heritage Estate Restoration",
+    desc: "Careful restoration of a historic estate preserving character while adding modern amenities.",
     bg: "/images/l4.jpg",
     thumb: "/images/sm4.jpg",
-    cta: "Learn More",
-    link: "/services/project-management",
+    cta: "View Project",
+    link: "/projects/heritage-estate-restoration",
   },
   {
-    title: "Renovation",
-    desc: "Transform your space with our renovation experts.",
+    title: "Eco-Friendly Townhouse",
+    desc: "Sustainable townhouse design incorporating green technologies and energy-efficient systems.",
     bg: "/images/l5.jpg",
     thumb: "/images/sm5.jpg",
-    cta: "Learn More",
-    link: "/services/renovation",
+    cta: "View Project",
+    link: "/projects/eco-friendly-townhouse",
   },
 ];
 
-const ServicesSlider: React.FC = () => {
+const ProjectsSlider: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isMobile, setIsMobile] = useState<boolean>(() =>
     typeof window !== "undefined"
@@ -92,8 +92,8 @@ const ServicesSlider: React.FC = () => {
     }
 
     return lines.map((line, index) => (
-      <div key={index} className="sp-mask">
-        <div className="sp-line">{line}</div>
+      <div key={index} className="pr-mask">
+        <div className="pr-line">{line}</div>
       </div>
     ));
   };
@@ -235,20 +235,20 @@ const ServicesSlider: React.FC = () => {
 
   return (
     <section
-      className="sp-services-slider-section"
+      className="pr-projects-slider-section"
       onKeyDown={handleKeyDown}
       tabIndex={0}
       ref={sectionRef}
     >
-      <div className="sp-head">
-        <h1 className="sp-services-slider-title" ref={titleRef}>
-          {splitTextIntoLines("Our Services")}
+      <div className="pr-head">
+        <h1 className="pr-projects-slider-title" ref={titleRef}>
+          {splitTextIntoLines("Our Projects")}
         </h1>
 
-        <div className="sp-controls">
+        <div className="pr-controls">
           <button
             id="prev"
-            className="sp-nav-btn"
+            className="pr-nav-btn"
             aria-label="Previous"
             onClick={() => goStep(-1)}
             disabled={activeIndex === 0}
@@ -257,7 +257,7 @@ const ServicesSlider: React.FC = () => {
           </button>
           <button
             id="next"
-            className="sp-nav-btn"
+            className="pr-nav-btn"
             aria-label="Next"
             onClick={() => goStep(1)}
             disabled={activeIndex === CARDS.length - 1}
@@ -268,16 +268,16 @@ const ServicesSlider: React.FC = () => {
       </div>
 
       <div
-        className="sp-slider"
+        className="pr-slider"
         ref={sliderRef}
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
-        <div className="sp-track" id="track" ref={trackRef}>
+        <div className="pr-track" id="track" ref={trackRef}>
           {CARDS.map((card, index) => (
             <article
               key={card.title}
-              className="sp-project-card"
+              className="pr-project-card"
               data-active={index === activeIndex}
               onMouseEnter={() => {
                 if (window.matchMedia("(hover:hover)").matches) {
@@ -287,20 +287,22 @@ const ServicesSlider: React.FC = () => {
               onClick={() => goTo(index)}
             >
               <img
-                className="sp-project-card__bg"
+                className="pr-project-card__bg"
                 src={card.bg}
                 alt={card.title}
               />
-              <div className="sp-project-card__content">
+              <div className="pr-project-card__content">
                 <img
-                  className="sp-project-card__thumb"
+                  className="pr-project-card__thumb"
                   src={card.thumb}
                   alt={card.title}
                 />
                 <div>
-                  <h3 className="sp-project-card__title">{card.title}</h3>
-                  <p className="sp-project-card__desc">{card.desc}</p>
-                  <Link to={card.link} className="sp-project-card__btn">{card.cta}</Link>
+                  <h3 className="pr-project-card__title">{card.title}</h3>
+                  <p className="pr-project-card__desc">{card.desc}</p>
+                  <Link to={card.link} className="pr-project-card__btn">
+                    {card.cta}
+                  </Link>
                 </div>
               </div>
             </article>
@@ -309,11 +311,11 @@ const ServicesSlider: React.FC = () => {
       </div>
 
       {!isMobile && (
-        <div className="sp-dots" id="dots">
+        <div className="pr-dots" id="dots">
           {CARDS.map((card, index) => (
             <span
               key={card.title}
-              className={"sp-dot" + (index === activeIndex ? " active" : "")}
+              className={"pr-dot" + (index === activeIndex ? " pr-active" : "")}
               onClick={() => goTo(index)}
             />
           ))}
@@ -323,4 +325,4 @@ const ServicesSlider: React.FC = () => {
   );
 };
 
-export default ServicesSlider;
+export default ProjectsSlider;
