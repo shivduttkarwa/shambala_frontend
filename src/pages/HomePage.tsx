@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import AnimatedHero from "../components/Home/AnimatedHero";
+import NewHeroSection from "../components/Home/NewHeroSection";
 import MobileHero from "../components/Home/MobileHero";
 import {
   EssenceSection,
@@ -12,7 +12,6 @@ import CTASection from "../components/Home/CTASection";
 import ServicesSection from "../components/Home/ServicesSection";
 import BlogSection from "../components/Home/BlogSection";
 import BodyRenderer from "../components/BodyRenderer";
-import FullWidthImage from "../components/Reusable/FullWidthImage";
 import { useHome } from "../hooks/useHome";
 import { SiteSettings } from "../services/api";
 
@@ -40,8 +39,7 @@ const HomePage: React.FC<HomePageProps> = ({ settings: _ }) => {
 
   return (
     <>
-      <div id="hero">{isMobile ? <MobileHero /> : <AnimatedHero />}</div>
-      <FullWidthImage />
+      <div id="hero">{isMobile ? <MobileHero /> : <NewHeroSection />}</div>
       <EssenceSection />
       <div id="services">
         <ServicesSection />

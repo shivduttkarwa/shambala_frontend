@@ -1,0 +1,235 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+* {
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #1B2C34;
+}
+
+.imgSliderWrapp {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  flex-direction: column;
+}
+
+.container {
+  position: relative;
+  width: 100vw;
+  height: 75vh;
+}
+
+.img-afterWrap, .img-beforeWrap {
+  position: absolute;
+  height: 75vh;
+  width: 100vw;
+  transition: all 0.15s;
+}
+
+.img-beforeWrap {
+  overflow: hidden;
+  width: 50vw;
+}
+
+.img-beforeWrap img {
+  filter: grayscale(100%);
+}
+
+img {
+  width: 100vw;
+  height: 100%;
+  object-fit: cover;
+}
+
+.sliderIndicator {
+  position: absolute;
+  width: 5px;
+  height: 100%;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  background-color: #1B2C34;
+  z-index: 30; 
+  pointer-events: none;
+  transition: all 0.15s;
+}
+
+.hero-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  opacity: 0;
+  animation: fadeInUp 1.5s forwards 0.5s;
+  z-index: 5; 
+  pointer-events: none;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translate(-50%, -60%);
+  }
+}
+
+h1 {
+  font-size: 2.8em;
+  color: #FFF;
+  margin-bottom: 20px;
+  font-weight: 700;
+  pointer-events: none;
+  z-index: 40; 
+}
+
+.hero-content-test {
+  pointer-events: none;
+  z-index: 40; 
+}
+
+.hero-btn {
+  padding: 15px 30px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border: 2px solid #FFF;
+  color: #FFF;
+  font-size: 1.2em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  outline: none;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  position: absolute;
+  bottom: 30%; 
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 50;
+}
+/* Media query for screens with a width of 280px */
+@media screen and (max-width: 280px) {
+  .hero-btn {
+    font-size: 1em; 
+  }
+  .hero-content h1 {
+    font-size: 2em; 
+  }
+}
+
+/* Media query for screens with a width of 375px */
+@media screen and (max-width: 376px) {
+  .hero-btn {
+    font-size: 0.9em; 
+    bottom: 10%;
+  }
+  .hero-content h1 {
+    font-size: 1.4em; 
+  }
+}
+
+/* Media query for screens with a width of 375px */
+@media screen and (max-width: 541px) {
+  .hero-btn {
+    font-size: 1.1em; 
+        bottom: 15%;
+  }
+  .hero-content h1 {
+    font-size: 2.0em;
+  }
+}
+
+
+/* Media query for screens with a width of 768px */
+@media screen and (max-width: 768px) {
+      .hero-btn {
+    font-size: 1.1em; 
+        bottom: 18%;
+  }
+}
+/* Media query for screens with a width of 768px */
+@media screen and (max-width: 1280px) {
+      .hero-btn {
+
+        bottom: 18%;
+  }
+}
+
+.hero-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.hero-btn:active {
+  transform: scale(0.95);
+}
+
+.blank-section {
+  height: 100vh;
+}
+
+
+class ImageSlider extends React.Component {
+  constructor(props) {
+    super(props);
+    this.sliderRef = React.createRef();
+    this.beforeRef = React.createRef();
+    this.containerRef = React.createRef();
+    this.state = { initialized: false };
+  }
+
+  componentDidMount() {
+    this.initializeSlider();
+    window.addEventListener('resize', this.initializeSlider);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.initializeSlider);
+  }
+
+  initializeSlider = () => {
+    if (!this.state.initialized) {
+      const containerWidth = this.containerRef.current.offsetWidth;
+      const width = containerWidth / 2;
+      this.beforeRef.current.style.width = `${width}px`;
+      this.sliderRef.current.style.left = `${width}px`;
+      this.setState({ initialized: true });
+    }
+  }
+
+  dragTheImg = (e) => {
+    // Check for touches array to support mobile devices
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const containerRect = this.containerRef.current.getBoundingClientRect();
+    const sliderPosition = clientX - containerRect.left;
+    const width = Math.max(0, Math.min(sliderPosition, containerRect.width));
+
+    this.beforeRef.current.style.width = `${width}px`;
+    this.sliderRef.current.style.left = `${width}px`;
+  };
+
+  render() {
+    return (
+      <div className="imgSliderWrapp">
+        <div
+          className="container"
+          ref={this.containerRef}
+          onMouseMove={this.dragTheImg}
+          onTouchMove={this.dragTheImg} // Add touch support
+        >
+          <div className="img-afterWrap">
+            <img src="https://images.unsplash.com/photo-1710362921917-2e33bb342a23?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MTIzNjg0MTN8&ixlib=rb-4.0.3&q=85" alt="After" />
+          </div>
+          <div className="img-beforeWrap" ref={this.beforeRef}>
+            <img src="https://images.unsplash.com/photo-1706820642455-12b6d3ea4a66?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MTIzNjgzMDB8&ixlib=rb-4.0.3&q=85" alt="Before" />
+          </div>
+          <div className="sliderIndicator" ref={this.sliderRef}></div>
+        </div>
+      </div>
+    );
+  }
+}
+
+ReactDOM.render(<ImageSlider />, document.getElementById('root'));

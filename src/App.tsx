@@ -5,6 +5,7 @@ import { Header, Footer } from "./components/Layout";
 import HomePage from "./pages/HomePage";
 import HouseDesignsRoute from "./pages/HouseDesignsRoute";
 import About from "./pages/About";
+import Services from "./pages/Services";
 import { useSiteSettings } from "./hooks/useSiteSettings";
 import BlackHoleLoader from "./components/UI/BlackHoleLoader";
 
@@ -31,6 +32,7 @@ function App() {
               <Route path="/" element={<HomePage settings={settings} />} />
               <Route path="/house-designs" element={<HouseDesignsRoute />} />
               <Route path="/about" element={<About />} />
+              <Route path="/services" element={<Services />} />
             </Routes>
           </main>
           <Footer settings={settings} />
