@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import FullWidthImage from "../Reusable/FullWidthImage";
 import ChangingText from "../UI/ChangingText";
-import GlassRainButton from "../UI/GlassRainButton";
+import ScrollDownButton from "../UI/ScrollDownButton";
 import gsap from "gsap";
 import "./ProjectsHero.css";
 
@@ -53,15 +53,13 @@ const ProjectsHero: React.FC = () => {
           <ChangingText texts={leftTexts} />
         </div>
       </div>
-      <div className="pr-projects-hero-center">
-        <GlassRainButton>Explore Projects</GlassRainButton>
-      </div>
       <div className="pr-projects-hero-right">
         <h1 ref={rightTopRef}>QUALITY</h1>
         <div className="pr-projects-hero-text-wrapper">
           <ChangingText texts={rightTexts} />
         </div>
       </div>
+      <ScrollDownButton targetId="projects-slider" />
     </FullWidthImage>
   );
 };

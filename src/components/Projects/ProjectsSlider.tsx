@@ -236,6 +236,7 @@ const ProjectsSlider: React.FC = () => {
   return (
     <section
       className="pr-projects-slider-section"
+      id="projects-slider"
       onKeyDown={handleKeyDown}
       tabIndex={0}
       ref={sectionRef}
