@@ -5,53 +5,43 @@ import path from 'path';
 const indexPath = path.join(process.cwd(), 'dist', 'index.html');
 let indexContent = fs.readFileSync(indexPath, 'utf8');
 
-// Add GitHub Pages routing script before </body>
-const routingScript = `
-    <script type="text/javascript">
-      // Single Page Apps for GitHub Pages
-      (function(l) {
-        if (l.search) {
-          var q = {};
-          l.search.slice(1).split('&').forEach(function(v) {
-            var a = v.split('=');
-            q[a[0]] = a.slice(1).join('=').replace(/~and~/g, '&');
-          });
-          if (q.p !== undefined) {
-            window.history.replaceState(null, null,
-              (q.p || '') +
-              (q.q ? ('?' + q.q) : '') +
-              l.hash
-            );
-          }
-        }
-      }(window.location))
-    </script>
-  </body>`;
+// Don't inject extra routing script into index.html because it already contains
+// the SPA decode script used on client (repo-based /?/ format). We'll only
+// generate a 404.html that redirects to the repo-based /?/ format so GitHub
+// Pages will preserve the requested path in the query for the SPA to recover.
 
-indexContent = indexContent.replace('  </body>', routingScript);
-fs.writeFileSync(indexPath, indexContent);
-
-// Create 404.html for username.github.io deployment
+// Create 404.html for repository-based GitHub Pages (e.g., username.github.io/<repo>/)
+const pathSegmentsToKeep = 1; // keep 1 segment for repo name
 const html404 = `<!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="utf-8">
     <title>Shambala Homes</title>
     <script type="text/javascript">
-        // Single Page Apps for GitHub Pages - for username.github.io
-        var l = window.location;
-        l.replace(
-            l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-            '/?p=' + l.pathname.slice(1).replace(/&/g, '~and~') +
-            (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
-            l.hash
-        );
+      // Single Page Apps for GitHub Pages - Repo-based pages
+      var l = window.location;
+      l.replace(
+        l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+        l.pathname
+          .split('/')
+          .slice(0, 1 + ${pathSegmentsToKeep})
+          .join('/') +
+        '/?/' +
+        l.pathname
+          .slice(1)
+          .split('/')
+          .slice(${pathSegmentsToKeep})
+          .join('/')
+          .replace(/&/g, '~and~') +
+        (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
+        l.hash
+      );
     </script>
-</head>
-<body>
-</body>
-</html>`;
+  </head>
+  <body>
+  </body>
+  </html>`;
 
 fs.writeFileSync(path.join(process.cwd(), 'dist', '404.html'), html404);
 
-console.log('GitHub Pages routing setup completed for username.github.io!');
+console.log('GitHub Pages routing setup completed for repo-based pages (pathSegmentsToKeep=' + pathSegmentsToKeep + ')');

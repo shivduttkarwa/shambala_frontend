@@ -292,7 +292,7 @@ const ProjectDetails: React.FC<ServiceDetailsProps> = ({
               {service.ctaDescription}
             </p>
             <div className="pr-project-detail-cta-buttons">
-              <GlassButton href="/contact">Get Started</GlassButton>
+              <GlassButton href="/#contact">Get Started</GlassButton>
               <GlassButton href="tel:+61400000000">Call Us Now</GlassButton>
             </div>
           </div>

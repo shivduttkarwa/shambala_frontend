@@ -165,7 +165,7 @@ const Footer: React.FC<FooterProps> = ({ settings }) => {
                 <span className="link-arrow">→</span>
                 About
               </Link>
-              <a href={`${publicUrl}blog`} className="footer-link">
+              <a href="/blog" className="footer-link">
                 <span className="link-arrow">→</span>
                 Blog
               </a>

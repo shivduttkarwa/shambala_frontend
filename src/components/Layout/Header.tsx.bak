@@ -7,46 +7,34 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ settings }) => {
-  const publicUrl = import.meta.env.BASE_URL || "/";
-
-  function normPath(path: string) {
-    if (!path) return publicUrl;
-    if (path === "/") return publicUrl;
-    if (path.startsWith("/")) {
-      // avoid double-slash
-      return publicUrl.endsWith("/")
-        ? publicUrl + path.slice(1)
-        : publicUrl + path;
-    }
-    return path;
-  }
+  const publicUrl = import.meta.env.BASE_URL;
 
   // Fixed menu items with proper routing
   const menuItems = [
     {
       label: "HOME",
       ariaLabel: "Go to home page",
-      link: normPath("/"),
+      link: "/",
     },
     {
       label: "PROJECTS",
       ariaLabel: "View our projects",
-      link: normPath("/projects"),
+      link: "/projects",
     },
     {
       label: "SERVICES",
       ariaLabel: "View our services",
-      link: normPath("/services"),
+      link: "/services",
     },
     {
       label: "ABOUT",
       ariaLabel: "Learn about us",
-      link: normPath("/about"),
+      link: "/about",
     },
     {
       label: "CONTACT US",
       ariaLabel: "Get in touch",
-      link: normPath("/#contact"),
+      link: "/#contact",
     },
   ];
 
