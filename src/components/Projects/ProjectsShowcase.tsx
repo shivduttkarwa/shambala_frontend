@@ -5,6 +5,8 @@ import "./ProjectsShowcase.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const publicUrl = import.meta.env.BASE_URL || "/";
+
 const ProjectsShowcase: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const leftImageRef = useRef<HTMLDivElement>(null);
@@ -142,7 +144,10 @@ const ProjectsShowcase: React.FC = () => {
             ref={leftImageRef}
             className="projects-showcase__image projects-showcase__image--left"
           >
-            <img src="/images/l1.jpg" alt="Modern interior design" />
+            <img
+              src={`${publicUrl}images/l1.jpg`}
+              alt="Modern interior design"
+            />
             <div className="projects-showcase__overlay">
               <span>Interior</span>
             </div>
@@ -152,7 +157,7 @@ const ProjectsShowcase: React.FC = () => {
             ref={centerImageRef}
             className="projects-showcase__image projects-showcase__image--center"
           >
-            <img src="/images/l2.jpg" alt="Architectural design" />
+            <img src={`${publicUrl}images/l2.jpg`} alt="Architectural design" />
             <div className="projects-showcase__overlay">
               <span>Architecture</span>
             </div>
@@ -162,7 +167,7 @@ const ProjectsShowcase: React.FC = () => {
             ref={rightImageRef}
             className="projects-showcase__image projects-showcase__image--right"
           >
-            <img src="/images/l3.jpg" alt="Landscape design" />
+            <img src={`${publicUrl}images/l3.jpg`} alt="Landscape design" />
             <div className="projects-showcase__overlay">
               <span>Landscape</span>
             </div>

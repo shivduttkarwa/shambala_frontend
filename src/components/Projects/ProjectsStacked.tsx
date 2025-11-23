@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+const publicUrl = import.meta.env.BASE_URL || "/";
 import "./ProjectsStacked.css";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -118,7 +119,10 @@ const ProjectsStacked: React.FC = () => {
 
         <div ref={imagesRef} className="projects-stacked__images">
           <div className="projects-stacked__image projects-stacked__image--1">
-            <img src="/images/l4.jpg" alt="Premium materials and finishes" />
+            <img
+              src={`${publicUrl}images/l4.jpg`}
+              alt="Premium materials and finishes"
+            />
             <div className="projects-stacked__overlay">
               <span>Premium Materials</span>
             </div>
@@ -126,7 +130,7 @@ const ProjectsStacked: React.FC = () => {
 
           <div className="projects-stacked__image projects-stacked__image--2">
             <img
-              src="/images/l5.jpg"
+              src={`${publicUrl}images/l5.jpg`}
               alt="Sustainable construction practices"
             />
             <div className="projects-stacked__overlay">
@@ -136,7 +140,7 @@ const ProjectsStacked: React.FC = () => {
 
           <div className="projects-stacked__image projects-stacked__image--3">
             <img
-              src="/images/l6.jpg"
+              src={`${publicUrl}images/l6.jpg`}
               alt="Innovative architectural solutions"
             />
             <div className="projects-stacked__overlay">
@@ -145,7 +149,10 @@ const ProjectsStacked: React.FC = () => {
           </div>
 
           <div className="projects-stacked__image projects-stacked__image--4">
-            <img src="/images/l7.jpg" alt="Timeless craftsmanship" />
+            <img
+              src={`${publicUrl}images/l7.jpg`}
+              alt="Timeless craftsmanship"
+            />
             <div className="projects-stacked__overlay">
               <span>Craftsmanship</span>
             </div>
