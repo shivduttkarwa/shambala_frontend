@@ -1,7 +1,7 @@
-import React, { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import './ProjectsShowcase.css';
+import React, { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import "./ProjectsShowcase.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -15,77 +15,93 @@ const ProjectsShowcase: React.FC = () => {
   useEffect(() => {
     const ctx = gsap.context(() => {
       // Parallax effect for images
-      gsap.fromTo(leftImageRef.current, {
-        y: 100,
-        opacity: 0,
-        scale: 0.8
-      }, {
-        y: 0,
-        opacity: 1,
-        scale: 1,
-        duration: 1.2,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top 80%",
-          end: "bottom 20%",
-          toggleActions: "play none none reverse"
+      gsap.fromTo(
+        leftImageRef.current,
+        {
+          y: 100,
+          opacity: 0,
+          scale: 0.8,
+        },
+        {
+          y: 0,
+          opacity: 1,
+          scale: 1,
+          duration: 1.2,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top 80%",
+            end: "bottom 20%",
+            toggleActions: "play none none reverse",
+          },
         }
-      });
+      );
 
-      gsap.fromTo(rightImageRef.current, {
-        y: -80,
-        opacity: 0,
-        scale: 0.8
-      }, {
-        y: 0,
-        opacity: 1,
-        scale: 1,
-        duration: 1.2,
-        ease: "power3.out",
-        delay: 0.2,
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top 80%",
-          end: "bottom 20%",
-          toggleActions: "play none none reverse"
+      gsap.fromTo(
+        rightImageRef.current,
+        {
+          y: -80,
+          opacity: 0,
+          scale: 0.8,
+        },
+        {
+          y: 0,
+          opacity: 1,
+          scale: 1,
+          duration: 1.2,
+          ease: "power3.out",
+          delay: 0.2,
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top 80%",
+            end: "bottom 20%",
+            toggleActions: "play none none reverse",
+          },
         }
-      });
+      );
 
-      gsap.fromTo(centerImageRef.current, {
-        y: 60,
-        opacity: 0,
-        scale: 0.9
-      }, {
-        y: 0,
-        opacity: 1,
-        scale: 1,
-        duration: 1.2,
-        ease: "power3.out",
-        delay: 0.4,
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top 80%",
-          end: "bottom 20%",
-          toggleActions: "play none none reverse"
+      gsap.fromTo(
+        centerImageRef.current,
+        {
+          y: 60,
+          opacity: 0,
+          scale: 0.9,
+        },
+        {
+          y: 0,
+          opacity: 1,
+          scale: 1,
+          duration: 1.2,
+          ease: "power3.out",
+          delay: 0.4,
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top 80%",
+            end: "bottom 20%",
+            toggleActions: "play none none reverse",
+          },
         }
-      });
+      );
 
-      gsap.fromTo(textRef.current, {
-        y: 50,
-        opacity: 0
-      }, {
-        y: 0,
-        opacity: 1,
-        duration: 1,
-        ease: "power2.out",
-        delay: 0.6,
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top 80%",
-          toggleActions: "play none none reverse"
+      gsap.fromTo(
+        textRef.current,
+        {
+          y: 50,
+          opacity: 0,
+        },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          ease: "power2.out",
+          delay: 0.6,
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top 80%",
+            toggleActions: "play none none reverse",
+          },
         }
-      });
+      );
 
       // Continuous floating animation
       gsap.to(leftImageRef.current, {
@@ -93,7 +109,7 @@ const ProjectsShowcase: React.FC = () => {
         duration: 3,
         ease: "sine.inOut",
         yoyo: true,
-        repeat: -1
+        repeat: -1,
       });
 
       gsap.to(rightImageRef.current, {
@@ -102,7 +118,7 @@ const ProjectsShowcase: React.FC = () => {
         ease: "sine.inOut",
         yoyo: true,
         repeat: -1,
-        delay: 0.5
+        delay: 0.5,
       });
 
       gsap.to(centerImageRef.current, {
@@ -111,7 +127,7 @@ const ProjectsShowcase: React.FC = () => {
         ease: "sine.inOut",
         yoyo: true,
         repeat: -1,
-        delay: 1
+        delay: 1,
       });
     }, containerRef);
 
@@ -122,50 +138,65 @@ const ProjectsShowcase: React.FC = () => {
     <section ref={containerRef} className="projects-showcase">
       <div className="projects-showcase__container">
         <div className="projects-showcase__images">
-          <div ref={leftImageRef} className="projects-showcase__image projects-showcase__image--left">
+          <div
+            ref={leftImageRef}
+            className="projects-showcase__image projects-showcase__image--left"
+          >
             <img src="/images/l1.jpg" alt="Modern interior design" />
             <div className="projects-showcase__overlay">
               <span>Interior</span>
             </div>
           </div>
-          
-          <div ref={centerImageRef} className="projects-showcase__image projects-showcase__image--center">
+
+          <div
+            ref={centerImageRef}
+            className="projects-showcase__image projects-showcase__image--center"
+          >
             <img src="/images/l2.jpg" alt="Architectural design" />
             <div className="projects-showcase__overlay">
               <span>Architecture</span>
             </div>
           </div>
-          
-          <div ref={rightImageRef} className="projects-showcase__image projects-showcase__image--right">
+
+          <div
+            ref={rightImageRef}
+            className="projects-showcase__image projects-showcase__image--right"
+          >
             <img src="/images/l3.jpg" alt="Landscape design" />
             <div className="projects-showcase__overlay">
               <span>Landscape</span>
             </div>
           </div>
         </div>
-        
+
         <div ref={textRef} className="projects-showcase__content">
           <h2 className="projects-showcase__title">
             Crafting Spaces That
             <span className="projects-showcase__accent"> Inspire</span>
           </h2>
           <p className="projects-showcase__description">
-            Every project tells a unique story. From conceptual sketches to the final reveal, 
-            we transform visions into extraordinary living spaces that reflect your personality 
-            and enhance your lifestyle.
+            Every project tells a unique story. From conceptual sketches to the
+            final reveal, we transform visions into extraordinary living spaces
+            that reflect your personality and enhance your lifestyle.
           </p>
           <div className="projects-showcase__stats">
             <div className="projects-showcase__stat">
               <span className="projects-showcase__stat-number">150+</span>
-              <span className="projects-showcase__stat-label">Projects Completed</span>
+              <span className="projects-showcase__stat-label">
+                Projects Completed
+              </span>
             </div>
             <div className="projects-showcase__stat">
               <span className="projects-showcase__stat-number">12</span>
-              <span className="projects-showcase__stat-label">Years Experience</span>
+              <span className="projects-showcase__stat-label">
+                Years Experience
+              </span>
             </div>
             <div className="projects-showcase__stat">
               <span className="projects-showcase__stat-number">98%</span>
-              <span className="projects-showcase__stat-label">Client Satisfaction</span>
+              <span className="projects-showcase__stat-label">
+                Client Satisfaction
+              </span>
             </div>
           </div>
         </div>
