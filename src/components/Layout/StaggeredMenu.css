@@ -107,13 +107,19 @@
   box-shadow: none !important;
 }
 
-/* Mobile: reduce header and toggle font sizes so they fit smaller screens */
+/* Mobile: bump header font sizes/padding on smaller screens by +20% (per request) */
 @media (max-width: 768px) {
+  .staggered-menu-header {
+    padding: 1.44rem 1.92rem; /* ~20% larger than desktop mobile padding */
+  }
   .sm-logo-text {
-    font-size: 0.8rem; /* smaller on mobile as well */
+    font-size: 0.96rem; /* 20% increase from 0.8rem */
   }
   .sm-toggle {
-    font-size: 0.8rem; /* smaller on mobile as well */
+    font-size: 0.96rem; /* 20% increase from 0.8rem */
+  }
+  .sm-logo-image {
+    height: 48px; /* 20% larger than 40px */
   }
 }
 
