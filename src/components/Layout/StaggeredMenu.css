@@ -48,7 +48,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.5rem 2rem;
+  padding: 1.2rem 1.6rem; /* reduced by 20% */
   background: rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -68,7 +68,7 @@
 .sm-logo-text {
   /* Primary: Cenzyl (if available), fallbacks: Cinzel, Dream Avenue */
   font-family: "Cenzyl", "Cinzel", "Dream Avenue", cursive;
-  font-size: 1.3rem; /* increased by 30% */
+  font-size: 1.04rem; /* reduced from 1.3rem by approx 20% */
   font-weight: 500;
   color: #fff;
   letter-spacing: 0.1em;
@@ -77,7 +77,7 @@
 }
 
 .sm-logo-image {
-  height: 50px;
+  height: 40px; /* 20% smaller */
   width: auto;
   max-width: 200px;
   object-fit: contain;
@@ -95,7 +95,7 @@
   align-items: center;
   gap: 0.75rem;
   font-family: "Cinzel", serif;
-  font-size: 1.3rem; /* increased by 30% */
+  font-size: 1.04rem; /* reduced from 1.3rem by approx 20% */
   font-weight: 500;
   padding: 0.5rem;
   transition: color 0.3s ease;
@@ -110,10 +110,10 @@
 /* Mobile: reduce header and toggle font sizes so they fit smaller screens */
 @media (max-width: 768px) {
   .sm-logo-text {
-    font-size: 1rem; /* revert to normal on mobile */
+    font-size: 0.8rem; /* smaller on mobile as well */
   }
   .sm-toggle {
-    font-size: 1rem; /* revert to normal on mobile */
+    font-size: 0.8rem; /* smaller on mobile as well */
   }
 }
 

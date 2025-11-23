@@ -1,9 +1,9 @@
-import fs from 'fs';
-import path from 'path';
+import fs from "fs";
+import path from "path";
 
 // Read the built index.html
-const indexPath = path.join(process.cwd(), 'dist', 'index.html');
-let indexContent = fs.readFileSync(indexPath, 'utf8');
+const indexPath = path.join(process.cwd(), "dist", "index.html");
+let indexContent = fs.readFileSync(indexPath, "utf8");
 
 // Don't inject extra routing script into index.html because it already contains
 // the SPA decode script used on client (repo-based /?/ format). We'll only
@@ -42,6 +42,10 @@ const html404 = `<!DOCTYPE html>
   </body>
   </html>`;
 
-fs.writeFileSync(path.join(process.cwd(), 'dist', '404.html'), html404);
+fs.writeFileSync(path.join(process.cwd(), "dist", "404.html"), html404);
 
-console.log('GitHub Pages routing setup completed for repo-based pages (pathSegmentsToKeep=' + pathSegmentsToKeep + ')');
+console.log(
+  "GitHub Pages routing setup completed for repo-based pages (pathSegmentsToKeep=" +
+    pathSegmentsToKeep +
+    ")"
+);
